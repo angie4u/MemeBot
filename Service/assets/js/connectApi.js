@@ -5,6 +5,10 @@ const inputStorageUrl = "https://krnoodlestorage.blob.core.windows.net/input/";
 const outputStorageUrl = "https://krnoodlestorage.blob.core.windows.net/thumbnail/";
 const storageSAS = "?st=2017-08-29T05%3A21%3A00Z&se=2017-12-31T05%3A21%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=yXmI8FEk23%2BRlb4CowdBdmxtLp1Su%2F03LRjZ34qyUN0%3D";
 
+var memeTextLocationX = 0;
+var memeTextLocationY = 0;
+
+
 $(document).ready(function () {
     //사용자가 URL 입력 후 전송 버튼을 눌렀을 떄 동작하는 코드
     $('#urlSendButton').click(function () {
@@ -38,6 +42,20 @@ $(document).ready(function () {
             processImage();
     });
 });
+
+$(document).ready(function () {
+
+    $('#createMemeButton').click(function (){
+
+            //img 에 이미지 파일 데이터 넘겨야함
+            var img = new Image();
+            img.src = $('#imgUrl').val();
+
+            var memeText = $('#memeText').val();
+            generateMeme (img, memeText, 0.5);
+    });
+});
+
 
 $(document).ready(function () {
     //사용자가 파일 선택 후 전송 버튼을 눌렀을 때 동작하는 코드 
@@ -171,6 +189,14 @@ function connectToAzureStroage(file){
 }
 
 
+function parseReturnValue(data){
+        
+    var faceLandmarks = data[0].faceLandmarks;
+    var underLipBottom = faceLandmarks.underLipBottom;
+    memeTextLocationX = underLipBottom.x;
+    memeTextLocationY = underLipBottom.y;
+}
+
 function parseErrorMessage(data){
     
     var temp = JSON.stringify(data);
@@ -180,6 +206,7 @@ function parseErrorMessage(data){
     var responseValue = JSON.parse(object.responseText);
     var errorCode = responseValue.Code;
 }
+
 
 function processImage() {
     // **********************************************
@@ -202,13 +229,14 @@ function processImage() {
     // Request parameters.
     var params = {
         "returnFaceId": "true",
-        "returnFaceLandmarks": "false",
+        "returnFaceLandmarks": "true",
         "returnFaceAttributes": "age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise",
     };
 
     // Display the image.
     var sourceImageUrl = document.getElementById("imgUrl").value;
     document.querySelector("#sourceImage").src = sourceImageUrl;
+
 
     // Perform the REST API call.
     $.ajax({
@@ -228,6 +256,7 @@ function processImage() {
 
     .done(function(data) {
         // Show formatted JSON on webpage.
+        parseReturnValue(data);
         $("#responseTextArea").val(JSON.stringify(data, null, 2));
     })
 
@@ -239,3 +268,47 @@ function processImage() {
         alert(errorString);
     });
 };
+
+
+function generateMeme (img, topText, topTextSize) {
+    let fontSize;
+
+    // Size canvas to image
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Draw main image
+    ctx.drawImage(img, 0, 0);
+
+    // Text style: white with black borders
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = 'black';
+    ctx.textAlign = 'center';
+
+    // Top text font size
+    fontSize = canvas.width * topTextSize /2;
+    ctx.font = fontSize + 'px Impact';
+    ctx.lineWidth = fontSize / 20;
+
+    // Draw top text
+    ctx.textBaseline = 'top';
+    topText.split('\n').forEach(function (t, i) {
+        ctx.fillText(t, memeTextLocationX, memeTextLocationY, canvas.width);
+        ctx.strokeText(t, memeTextLocationX, memeTextLocationY, canvas.width);
+    });
+
+    
+}
+
+function init () {
+     canvas = document.getElementById('meme-canvas');
+    
+    ctx = canvas.getContext('2d');
+
+    canvas.width = canvas.height = 0;
+
+}
+
+init();
