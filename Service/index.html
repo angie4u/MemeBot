@@ -32,62 +32,56 @@
             </div>
         </div>
 
-        <!-- <div class="row marketing">
-            <div class="col-lg-5">
-                <h4>이미지 URL 입력</h4>
-                <p>
-                    <form id="urlForm">
-                        <div class="input-group">
-                            <input id="imgUrl" type="text" class="form-control" placeholder="Image URL...">
-                            <span class="input-group-btn">
-                                <button id="urlSendButton" class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                        
-                    </form>
-                </p>
-            </div>
-
-            <div class="col-lg-2 text-center">
-                <h1>Or</h1>
-            </div>
-
-            <div class="col-lg-5">
-                <h4>파일 업로드</h4>
-                <p>
-                    <form class="form-inline" id="fileForm" method="post" enctype="multipart/form-data">
-                        <input type="file" id="fileTag" name="fileTag" class="filestyle" data-icon="false" data-buttonBefore="true" />
-                        <button id="fileSendButton" class="btn btn-primary" type="button">Send</button>
-                    </form>
-                </p>
-            </div>
-
-        </div> -->
+        
 
         <div class="container">
         
-            <h4>STEP1. 파일 업로드</h4>
+            <h4>STEP1. URL 입력</h4>
              <p>
-                <form class="form-inline" id="fileForm" method="post" enctype="multipart/form-data">
-                    <input type="file" id="fileTag" name="fileTag" class="filestyle" data-icon="false" data-buttonBefore="true" />
-                    <button id="fileSendButton" class="btn btn-primary" type="button">Send</button>
+                <form id="urlForm">
+                    <div class="input-group">
+                        <input id="imgUrl" type="text" class="form-control" value="https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg">
+                        <span class="input-group-btn">
+                            <button id="processImageButton" class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>                        
                 </form>
             </p>
-        
-            <h4>STEP2. 말풍선 박스 선택</h4>
+            <br><br>
+            <h4>STEP2. 이미지 분석 결과</h4>
+            <p>
+                <div id="wrapper" style="width:1020px; display:table;">
+                    <div id="jsonOutput" style="width:600px; display:table-cell;">
+                        Response:
+                        <br><br>
+                        <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
+                    </div>
+                    <div id="imageDiv" style="width:420px; display:table-cell;">
+                        Source image:
+                        <br><br>
+                        <img id="sourceImage" width="400" />
+                    </div>
+                </div>
+            </p>
+            
+            <br><br>
+
+            <h4>STEP3. 말풍선 박스 선택</h4>
             <p></p>
 
-            <h4>STEP3. 문구 입력</h4>
+            <br><br>
+
+            <h4>STEP4. 문구 입력</h4>
             <p></p>
 
-            <h4>STEP4. 카드 만들러 가기</h4>
+            <br><br>
+
+            <h4>STEP5. 카드 만들러 가기</h4>
             <p></p>
-
-
-
 
         </div>
 
+       
         <div class="container" id="resultContainer">
             <!-- 결과 값 출력하기 위한 공간 -->
         </div>
@@ -99,7 +93,6 @@
 
     </div>
     <!-- /container -->
-
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-filestyle.min.js"></script>
