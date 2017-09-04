@@ -193,8 +193,11 @@ function parseReturnValue(data){
         
     var faceLandmarks = data[0].faceLandmarks;
     var underLipBottom = faceLandmarks.underLipBottom;
-    memeTextLocationX = underLipBottom.x;
-    memeTextLocationY = underLipBottom.y;
+    //memeTextLocationX = underLipBottom.x;
+    //memeTextLocationY = underLipBottom.y;
+
+    memeTextLocationX = underLipBottom.x - 223;
+    memeTextLocationY = underLipBottom.y - 223;
 }
 
 function parseErrorMessage(data){
