@@ -288,9 +288,9 @@ function generateMeme (img, topText, topTextSize) {
 
     //말풍선 이미지 추가
     var dialogImg = new Image();
-    dialogImg.src = "img/says.png";
+    dialogImg.src = "img/think.png";
 
-    ctx.drawImage(dialogImg,memeTextLocationX-100,memeTextLocationY-20);
+    ctx.drawImage(dialogImg,memeTextLocationX-50,memeTextLocationY-20);
 
 
     // Text style: white with black borders
