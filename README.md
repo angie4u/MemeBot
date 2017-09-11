@@ -9,11 +9,35 @@
 
 출처: [나무위키](https://namu.wiki/w/%EC%A7%A4%EB%B0%A9)
 
-## Demo용 웹서비스
+## Architecture
 
-* [http://memeservice.azurewebsites.net/service/index.html](http://memeservice.azurewebsites.net/service/index.html)
+Hackaton에서 만들어 볼 Bot의 아키텍처 입니다. 김태영 부장님께서 작성하시느라 수고해 주셨습니다. :)
 
-![001](./Image/001.JPG)
-![002](./Image/002.JPG)
-![003](./Image/003.JPG)
+![archtecture](./Image/Architecture.JPG)
+
+## 역할 분담
+
+* yschoi : 오케스트레이션 
+* hyeryu : 말풍선 이미지 찾기, 문서 작업 
+* hyeryu, eunk : Vision API 이용하여 얼굴 이미지 확인 후 결과 값 전달 (Work with - taeyok, hchoi)
+* taeyok : 이미지 프로세싱, 캐로우슬 이미지 작업 (Work with - hchoi, eunk)
+* hchoi, yowkim : 챗봇 만들기, 프로 액티브 작업 (Work with - All)
+* mib : 페이스북과 연동 서비스 만들기, 웹앱 (Work with - hchoi)
+* sjbaek : 도커로 배포 (Work with - mib)
+
+
+## 제약사항 
+
+챗봇을 통해 Meme을 만들때에는 모든 경우를 고려할 수 없기 때문에 이미지 크기나 글자의 수에 한계가 있습니다.
+제약사항은 다음과 같으며, 추후 계속적으로 업데이트 할 예정입니다. 
+
+* 이미지 
+    * 최소 사이즈 : 500
+    * 권장 : 텍스트 20자 내
+    * 버블 위치 : TopL, TopR, BottomL, BottonR
+    * 버블 종류 : 원, 구름, 스타
+    * 필터 : 약 8가지 
+    * 이미지 유형 : JPG, PNG
+
+
 
